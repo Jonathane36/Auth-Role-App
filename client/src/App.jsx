@@ -1,55 +1,40 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import SignupForm from './components/SignupForm.jsx';
-import LoginForm from './components/LoginForm.jsx';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+// Components
+import Navbar from './components/Navbar';
+
+// Pages
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import SignupLoginPage from './pages/SignupLoginPage'; 
+
 import './App.css';
+
 
 function App() {
   // State to demonstrate React functionality (default Vite counter)
   const [count, setCount] = useState(0);
 
   return (
-    <>
-      {/* Logo Section */}
-      <div>
-        {/* Vite Logo Link */}
-        <a href="https://vite.dev" target="_blank" rel="noopener noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        {/* React Logo Link */}
-        <a href="https://react.dev" target="_blank" rel="noopener noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
+    <Router>
+      {/* Navigation Bar */}
+      <Navbar />
 
-      {/* Title */}
-      <h1>Vite + React</h1>
+      {/* Routes to different pages */}
+      <Routes>
 
-      {/* Counter Section (default Vite example, optional) */}
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          Count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
+        {/* Home Page*/}
+        <Route path="/" element={<HomePage count={count} setCount={setCount} />} />
 
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        {/* Auth Page: contains both Signup and Login forms */}
+        <Route path="/auth" element={<SignupLoginPage />} />
 
-      {/* Auth App Section */}
-      <div className="App">
-        <h1>Auth Role App</h1>
-        {/* Signup Form Component */}
-        <SignupForm />
-
-        {/* Login Form Component */}
-        <LoginForm />
-      </div>
-    </>
+        {/* Auth Page: contains both Signup and Login forms */}
+        <Route path="/about" element={<AboutPage />} />
+        
+      </Routes>
+    </Router>
   );
 }
 
